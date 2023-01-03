@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Imagenes index{% endblock %}
+
+{% block body %}
+    <h1>Imagenes index</h1>
+
+    <table class="display" style="width:100%" id="myTable">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Image</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for key, imagene in imagenes %}
+            <tr>
+                <td>{{ imagene.nombre }}</td>
+                <td>
+                  {% if  img[key] is defined and img[key] is null  %}
+                   
+                  {% elseif img[key] is defined and img[key] is not null  %}
+                   <img src="data:image/png;base64,{{ img[key] }}" />
+                  {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('app_imagenes_show', {'id': imagene.id}) }}">show</a>
+                    <a href="{{ path('app_imagenes_edit', {'id': imagene.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td>no ha registros</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_imagenes_new') }}">Create new</a>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+$(document).ready( function () {
+    $('#myTable').DataTable({
+
+           language: {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+        },
+     
+      responsive: true,
+    });
+} );
+</script>
+{% endblock %}

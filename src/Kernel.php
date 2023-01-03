@@ -8,4 +8,13 @@ use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
+
+    public function __construct($environment, $debug)
+    {
+        
+        header("Content-Type: image/bmp");
+        date_default_timezone_set( 'America/Guayaquil' );
+
+        parent::__construct($environment, $debug);
+    }
 }
